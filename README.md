@@ -1,0 +1,1 @@
+# buddycoach-user-management-service
