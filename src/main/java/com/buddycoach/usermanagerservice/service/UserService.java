@@ -1,25 +1,37 @@
-//Contiene la lógica de negocio y coordina las operaciones entre el UserController y el UserRepository.
-
 package com.buddycoach.usermanagerservice.service;
 
 import com.buddycoach.usermanagerservice.model.User;
 import com.buddycoach.usermanagerservice.repository.UserRepository;
-import java.sql.SQLException;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+@Service
 public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public User registerUser(User user) {
+        // Implement registration logic here
     }
 
-    public User getUserById(Long id) throws SQLException {
-        return userRepository.getUserById(id);
+    public User loginUser(String email, String password) {
+        // Implement login logic here
     }
 
-    public List<User> getAllUsers() throws SQLException {
-        return userRepository.getAllUsers();
+    public User updateUser(User user) {
+        // Implement update logic here
+    }
+
+    public void deleteUser(Long userId) {
+        // Implement delete logic here
+        userRepository.deleteById(userId);
+    }
+
+    public Optional<User> getUserById(Long userId) {
+        return userRepository.findById(userId);
     }
 }
+

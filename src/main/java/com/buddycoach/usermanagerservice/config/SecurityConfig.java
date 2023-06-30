@@ -1,25 +1,19 @@
 package com.buddycoach.usermanagerservice.config;
 
-import com.buddycoach.usermanagerservice.utils.JwtProvider;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-// Aquí deberías configurar Spring Security, pero como no puedes usar anotaciones y otras funcionalidades de Spring,
-// puedes hacer un filtro básico si estás usando algo como servlets.
-
-public class SecurityConfig {
-
-    private final JwtProvider jwtProvider;
-
-    public SecurityConfig(JwtProvider jwtProvider) {
-        this.jwtProvider = jwtProvider;
-    }
-
-    public void doFilter(HttpServletResponse response, String token) throws IOException {
-        if (!jwtProvider.validateToken(token)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");
-        }
-        // ToDo lógica para establecer la autenticación.
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                .anyRequest().authenticated();
     }
 }
