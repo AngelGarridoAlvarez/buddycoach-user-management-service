@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping(path = "/api/v1/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping(path = "/register")
+    @PostMapping(path = "/save")
     public String registerUser(@RequestBody UserDTO userDTO) {
         String username = userService.addUser(userDTO);
         return username;
